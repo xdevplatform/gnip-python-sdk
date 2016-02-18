@@ -59,7 +59,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     platforms=['any'],
     classifiers=CLASSIFIERS,
-    scripts=['bin/twitter-ads'],
+    scripts=['bin/gnip'],
     install_requires=['pyyaml', 'requests-oauthlib', 'python-dateutil'],
     packages=find_packages(exclude=['docs', 'tests']),
     **extra_opts
