@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import os
+import yaml
+import code
+import sys
+import readline
+import rlcompleter
+import atexit
+
+try:
+    import twitter_ads
+    print('[INFO] using pip installed gnip.')
+except ImportError:
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+    import twitter_ads
+    print('[INFO] using local clone of twitter-ads.')
+
+# insert gnip code
+
+# tab completion
+readline.parse_and_bind('tab: complete')
+
+# history file
+histfile = os.path.join(os.environ['HOME'], '.pythonhistory')
+try:
+    readline.read_history_file(histfile)
+except IOError:
+    pass
+atexit.register(readline.write_history_file, histfile)
+del os, histfile, readline, rlcompleter
+
+# start interactive session
+init_with = { 'CLIENT': CLIENT } if CLIENT else {}
+code.InteractiveConsole(locals=init_with).interact(
+    BANNER.format(twitter_ads.utils.get_version()))
