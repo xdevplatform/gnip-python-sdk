@@ -186,7 +186,6 @@ class GnipSearchAPI(object):
                   use_case="wordcount",
                   start=None,
                   end=None,
-                  end=None,
                   count_bucket="day",
                   csv_flag=False,
                   query=False):
@@ -196,10 +195,15 @@ class GnipSearchAPI(object):
         if self.paged:
             # avoid making many small requests
             max_results = 500
-        self.rule_payload = {'query': pt_filter}
 
-        # 30 DAY: to use 30 day search, replace the above line with the below
-        # updated rule payload
+        ############
+        UNCOMMENT THE BELOW CODE BASED ON FAS or 30 DAY
+        ############
+
+        # Full Archive Search: Use this
+        # self.rule_payload = {'query': pt_filter}
+
+        # 30 Day Search: Use this
         # self.rule_payload = {
         #             'query': pt_filter,
         #             'maxResults': int(max_results),
@@ -332,9 +336,10 @@ class QueryError(Exception):
         return repr("%s (%s, %s)" % (self.message, self.payload, self.response))
 
 if __name__ == "__main__":
-    g = GnipSearchAPI("USER"
-            , "PASSWORD"
-            , "STREAM_URL",
+    g = GnipSearchAPI(
+            "USERNAME",
+            "PASSWORD",
+            "SEARCH_URL",
             )
 
     term = "captain america"
